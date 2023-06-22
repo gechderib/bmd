@@ -1,5 +1,5 @@
 const signin = require("../controllers/signin.controller");
-const { addUser, getAllUsers, getOneUser, getYourPatient, deleteUser, updateUser } = require("../controllers/user.controller");
+const { addUser, getAllUsers, getOneUser, getYourPatient, deleteUser, updateUser, getMainInfo, addInfo } = require("../controllers/user.controller");
 const { verifyToken, isDoc } = require("../middlewares/auth.jwt");
 const {
   checkRoleExist,
@@ -11,11 +11,13 @@ const mainRoute = (app) => {
 
   router.post(
     "/addUser",
-    [],
+    [verifyToken, isDoc],
     addUser
   );
   router.post("/addPatient",[verifyToken, isDoc,checkRoleExist], addUser)
   router.post("/signin", [], signin);
+  router.get("/getMainInfo/:id", [verifyToken, isDoc], getMainInfo)
+  router.post("/addInfo", [verifyToken], addInfo)
   router.get("/users",[verifyToken,isDoc],getAllUsers)
   router.get("/user/:id",[verifyToken, isDoc],getOneUser)
   router.get("/myPatient",[verifyToken, isDoc],getYourPatient)

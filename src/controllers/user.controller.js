@@ -16,6 +16,37 @@ const addUser = async (req, res) => {
     return;
   }
 };
+// id volume frr
+const addInfo = async (req, res) => {
+  try {
+    // const {id} = req.params
+    
+    const data = req.body.fromArduino
+    const id = data.split("#")[0]
+    const frr = data.split("#")[1]
+    const volume = data.split("#")[2]
+    const response = await UserModel.findByIdAndUpdate(id, {frr, volume});
+    if (!response) {
+      res.status(400).send({ message: `can't update with id ${id}` });
+      return;
+    } else {
+      // 
+      const data = {
+        ...req.body,
+        _id: id,
+        createdAt: response.createdAt,
+        profilePicture: response.profilePicture,
+      };
+
+      res.status(201).send({ message: "data successfully updated", data });
+      return;
+    }
+    
+  }catch(err){
+    res.status(500).send({message: err.message})
+    return
+  }
+}
 
 const getAllUsers = async (req, res) => {
   try {
@@ -51,6 +82,23 @@ const getOneUser = async (req, res) => {
     return;
   }
 };
+
+const getMainInfo = async (req, res) => {
+  const {id} = req.params
+  try {
+    const info = await UserModel.findOne({_id:id})
+    if (info){
+      const main = `${info.density}#${info.volume}#${info.frr}`
+      res.status(200).send(main)
+      return
+    }
+    res.status(401).send({message: "user Not found"});
+    return;
+  }catch(err){
+    res.status(500).send({message: err.message})
+    return
+  }
+}
 
 const getYourPatient = async (req, res) => {
   try {
@@ -127,4 +175,6 @@ module.exports = {
   updateUser,
   deleteUser,
   getYourPatient,
+  getMainInfo,
+  addInfo
 };

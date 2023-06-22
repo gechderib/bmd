@@ -16,6 +16,8 @@ const userSchema = mongoose.Schema(
     address: {type: String,required: isPatient},
     gender: {type: String, required: isPatient},
     sensorData : {type: String, required: isPatient, default:0},
+    density: {type: String, required: isPatient, default:0},
+    volume: {type: String, required: isPatient, default:0},
     roles: {type:[String], default:["patient"]},
     addedBy:{type: mongoose.Schema.Types.ObjectId, ref:"User", default:null}
   },
