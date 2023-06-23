@@ -19,12 +19,12 @@ const addUser = async (req, res) => {
 // id volume frr
 const addInfo = async (req, res) => {
   try {
-    // const {id} = req.params
+
     
-    const data = req.body.fromArduino
-    const id = data.split("#")[0]
-    const frr = data.split("#")[1]
-    const volume = data.split("#")[2]
+    const {fromArduino} = req.params
+    const id = fromArduino.split("#")[0]
+    const frr = fromArduino.split("#")[1]
+    const volume = fromArduino.split("#")[2]
     const response = await UserModel.findByIdAndUpdate(id, {frr, volume});
     if (!response) {
       res.status(400).send({ message: `can't update with id ${id}` });
