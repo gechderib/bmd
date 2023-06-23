@@ -16,8 +16,8 @@ const mainRoute = (app) => {
   );
   router.post("/addPatient",[verifyToken, isDoc,checkRoleExist], addUser)
   router.post("/signin", [], signin);
-  router.get("/getMainInfo/:id", [verifyToken, isDoc], getMainInfo)
-  router.post("/addInfo", [verifyToken], addInfo)
+  router.get("/getMainInfo/:id", [], getMainInfo)
+  router.post("/addInfo", [], addInfo)
   router.get("/users",[verifyToken,isDoc],getAllUsers)
   router.get("/user/:id",[verifyToken, isDoc],getOneUser)
   router.get("/myPatient",[verifyToken, isDoc],getYourPatient)
