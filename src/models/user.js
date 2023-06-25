@@ -22,7 +22,7 @@ const userSchema = mongoose.Schema(
     volumeThreshold:{type: String, required:isPatient, default:0},
     density: {type: String, required: isPatient, default:0},
     roles: {type:[String], default:["patient"]},
-    status:{type: Boolean, default:false},
+    status:{type: Boolean, required: isPatient, default:false},
     addedBy:{type: mongoose.Schema.Types.ObjectId, ref:"User", default:null}
   },
   {
