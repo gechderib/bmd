@@ -11,7 +11,7 @@ const mainRoute = (app) => {
 
   router.post(
     "/addUser",
-    [verifyToken, isDoc],
+    [],
     addUser
   );
   router.post("/addPatient",[verifyToken, isDoc,checkRoleExist], addUser)
