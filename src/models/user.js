@@ -5,7 +5,8 @@ const userSchema = mongoose.Schema(
     fullName:{type:String, required:true},
     username:{type: String, required:isDoc},
     password: {type: String, required:isDoc},
-    frr:{type: String, required:isPatient, default:0},
+    maxFrr:{type: String, required:isPatient, default:0},
+    minFrr:{type: String, required:isPatient, default:0},
     bedNum: {type: String, required:isPatient},
     roomum: {type: String, required: isPatient},
     age: {type: String, required: isPatient},
@@ -18,15 +19,16 @@ const userSchema = mongoose.Schema(
     sensorData : {type: String, required: isPatient, default:0},
     density: {type: String, required: isPatient, default:0},
     volume: {type: String, required: isPatient, default:0},
+    volumeThreshold:{type: String, required:isPatient, default:0},
+    density: {type: String, required: isPatient, default:0},
     roles: {type:[String], default:["patient"]},
+    status:{type: Boolean, default:false},
     addedBy:{type: mongoose.Schema.Types.ObjectId, ref:"User", default:null}
   },
   {
     timestamps: true,
   }
 );
-// "username":"geme",
-// "password": "111111",
 
 function isPatient() {
     if(this.roles.includes("patient")){
